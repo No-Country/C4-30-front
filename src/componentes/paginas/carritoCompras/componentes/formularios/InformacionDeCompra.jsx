@@ -1,6 +1,6 @@
 import React from 'react';
 import Swal from 'sweetalert2';
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "../../contenedores/CarritoCompras.scss";
 import tipo from "../../constantes/images";
 

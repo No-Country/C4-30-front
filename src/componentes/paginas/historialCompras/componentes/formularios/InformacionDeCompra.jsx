@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "../../contenedores/HistorialCompras.scss";
 import tipo from "../../../configuracionCuenta/constantes/images";
 import axios from "axios";

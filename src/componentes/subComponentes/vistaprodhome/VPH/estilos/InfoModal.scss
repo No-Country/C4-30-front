@@ -25,7 +25,7 @@
         font-size: medium;
       }
       h5 {
-        text-align: start;
+        text-align: flex-startt;
         width: 100%;
         font-size: x-large;
         border-bottom: 2px solid black;
@@ -56,7 +56,7 @@
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    text-align: start;
+    text-align: flex-startt;
     display: flex;
     position: relative;
     z-index: 15;

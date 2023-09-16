@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Slider.scss";
+import "./slider.scss";
 
 function Slider() {
   const banners = ['/img/Slide1.png', '/img/Slide2.png', '/img/Slide3.png', '/img/Slide4.png'];

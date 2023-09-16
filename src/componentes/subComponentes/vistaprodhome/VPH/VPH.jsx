@@ -14,14 +14,14 @@ export default function VPH({ prod, categorias }) {
   const [isHeart, setIsHeart] = useState(prod.favorite);
 
   const buttonHeart = () => {
-    axios.put(
-      `https://country-app-v3.herokuapp.com/api/v1/products/${prod.id}`,
-      {
-        products: {
-          favorite: isHeart,
-        },
-      }
-    );
+    // axios.put(
+    //   `https://country-app-v3.herokuapp.com/api/v1/products/${prod.id}`,
+    //   {
+    //     products: {
+    //       favorite: isHeart,
+    //     },
+    //   }
+    // );
   };
 
   const [isBag, setIsBag] = useState(false);
@@ -30,25 +30,27 @@ export default function VPH({ prod, categorias }) {
     setIsBag((current) => !current);
 
     if (!isBag) {
-      axios.post(
-        `https://country-app-v3.herokuapp.com/orders/${localStorage.getItem(
-          "id"
-        )}`,
-        {
-          state: "sin pagar",
-          products: {
-            ...prod,
-            count: 1,
-          },
-        }
-      );
+      // axios.post(
+      //   `https://country-app-v3.herokuapp.com/orders/${localStorage.getItem(
+      //     "id"
+      //   )}`,
+      //   {
+      //     state: "sin pagar",
+      //     products: {
+      //       ...prod,
+      //       count: 1,
+      //     },
+      //   }
+      // );
     }
   };
 
   let categoria;
   if (categorias) {
     categoria = categorias.find((e) => e.id === prod.category_id);
+
   }
+
 
   useEffect(() => {
     buttonHeart();
@@ -56,7 +58,7 @@ export default function VPH({ prod, categorias }) {
 
   return (
     <div className="contenedorVPH">
-      <img src={prod.image} alt="imagen" />
+      <img src={prod.img} alt="imagen" />
       <h4 className={`postexto ${prod.state === "disponible" ? "hidden" : ""}`}>
         AGOTADO
       </h4>
@@ -76,7 +78,7 @@ export default function VPH({ prod, categorias }) {
                       <h3>DESTALLES DEL PRODUCTO</h3>
                     </section>
                     <section class="imgInfo">
-                      <img src=${prod.image} alt="producto" />
+                      <img src=${prod.img} alt="producto" />
                     </section>
 
                     <section class="nameInfo">
@@ -91,7 +93,7 @@ export default function VPH({ prod, categorias }) {
                         categoria && categoria.name
                       } </p>
                       <p> <strong> Tiempo de preparación: </strong> ${
-                        prod.time_preparation
+                        prod.preparation
                       } </p>
                       <p> <strong> Estado: </strong> ${prod.state} </p>
                     </section>
@@ -126,7 +128,7 @@ export default function VPH({ prod, categorias }) {
               src={isHeart === true ? heartbold : heart}
               alt="heart"
               onClick={() => {
-                setIsHeart(!isHeart);
+                // setIsHeart(!isHeart);
               }}
             />
             {prod.state === "disponible" && (
@@ -142,13 +144,13 @@ export default function VPH({ prod, categorias }) {
 
         <div className="flex2">
           <img className="iconclock" src={clock} alt="clock" />
-          <h2>{prod.time_preparation}</h2>
+          <h2>{prod.preparation}</h2>
           <h2>$ {prod.price}.00</h2>
         </div>
 
         <div className="flex2">
           <div className="flex3">
-            <img className="icon" src={categoria && categoria.image} alt="" />
+            <img className="icon" src={categoria && categoria.img} alt="" />
             <h3>{categoria && categoria.name}</h3>
           </div>
         </div>

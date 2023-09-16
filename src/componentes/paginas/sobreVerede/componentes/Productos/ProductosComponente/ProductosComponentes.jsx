@@ -5,20 +5,36 @@ import Categorias from "../../../../../subComponentes/categorias/Categorias";
 import VPSV from "../../../../../subComponentes/vistaprodSobreVeride/VPSV/VPSV";
 import { FiSearch } from "react-icons/fi";
 import '../ProductosComponente/EstiloBuscador.scss'
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../../../../firebase";
 
 function ProductosComponentes() {
   const [categorias, setCategorias] = useState([]);
   // Almacena el contenido del CONTEXT en una CONSTANTE
   const searchContext = useContext(SearchContext);
   console.log(searchContext.query); // para pruebas del CONTEXT
-  const cargarCategorias = () => {
-    axios
-      .get("https://country-app-v3.herokuapp.com/categories")
-      .then((data) => {
-        //Data de Categorias al useState
-        setCategorias(data.data);
-      })
-      .catch((error) => console.log(error));
+  const cargarCategorias = async() => {
+    // axios
+      // .get("https://country-app-v3.herokuapp.com/categories")
+      // .then((data) => {
+      //   //Data de Categorias al useState
+      //   setCategorias(data.data);
+      // })
+      // .catch((error) => console.log(error));
+      let list = [];
+      try {
+        const querySnapshot = await getDocs(collection(db, "categorias"));
+        querySnapshot.forEach((doc) => {
+          list.push({
+            ...doc.data(),
+            id: doc.id,
+          })
+        });
+        //Data de Productos al useState
+        setCategorias(list);
+      }catch(err){
+        console.log(err);
+      }
   };
 
   useEffect(() => {
@@ -28,22 +44,37 @@ function ProductosComponentes() {
   // mostrar PRODUCTOS y MAS VENDIDOS desde la API
   const [productos, setProductos] = useState([]);
 
-  const cargarProductos = (e) => {
-    axios
-      .get("https://country-app-v3.herokuapp.com/api/v1/products")
-      .then((data) => {
-        data = data.data;
+  const cargarProductos = async(e) => {
+    // axios
+    //   .get("https://country-app-v3.herokuapp.com/api/v1/products")
+    //   .then((data) => {
+    //     data = data.data;
 
-        // Filtrado con el input del BUSCADOR
-        const searchResult =
-          data &&
-          data.filter((item) => item.name.toLowerCase().includes(e.query));
+    //     // Filtrado con el input del BUSCADOR
+    //     const searchResult =
+    //       data &&
+    //       data.filter((item) => item.name.toLowerCase().includes(e.query));
 
-        // Data de Productos al useState
-        // setProductos(data.data);
-        setProductos(searchResult);
-      })
-      .catch((error) => console.log(error));
+    //     // Data de Productos al useState
+    //     // setProductos(data.data);
+    //     setProductos(searchResult);
+    //   })
+    //   .catch((error) => console.log(error));
+    let list = [];
+    try {
+      const querySnapshot = await getDocs(collection(db, "productos"));
+      querySnapshot.forEach((doc) => {
+
+        list.push(doc.data())
+      });
+      //Filtrado con el input del BUSCADOR
+      const searchResult = list && list.filter((item) => item.name.toLowerCase().includes(e.query));
+      //Data de Productos al useState
+      setProductos(searchResult);
+      console.log("in productos",list);
+    }catch(err){
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -74,7 +105,7 @@ function ProductosComponentes() {
           type="text"
           placeholder="Buscar Producto..."
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyUp={(e) => handleEnter(e)}
+          // onKeyUp={(e) => handleEnter(e)}
           value={searchQuery}
         />
         <button

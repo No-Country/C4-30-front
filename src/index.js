@@ -7,17 +7,22 @@ import reportWebVitals from "./reportWebVitals";
 //import { AppProvider } from "./AppContext";
 import SearchContextProvider from "./context/SearchContext";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import { AuthContextProvider } from "./context/AuthContext";
 
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <AppProvider> */}
+    <AuthContextProvider>
     <SearchContextProvider>
-      <BrowserRouter>
-        <App />
+    <BrowserRouter>
+      
+          <App />
+   
       </BrowserRouter>
     </SearchContextProvider>
     {/* </AppProvider> */}
+    </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

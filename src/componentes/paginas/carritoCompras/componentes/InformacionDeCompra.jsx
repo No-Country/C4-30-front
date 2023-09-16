@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "../contenedores/CarritoCompras.scss";
 import tipo from "../../configuracionCuenta/constantes/images";
-import axios from "axios";
+// import axios from "axios";
 
 function FormCuentaUser({ state, user, setState }) {
   const [productos, setProductos] = useState([]);
@@ -40,25 +40,25 @@ function FormCuentaUser({ state, user, setState }) {
           timer: 1500,
         });
 
-        axios
-          .post(
-            `https://country-app-v3.herokuapp.com/buy/${localStorage.getItem(
-              "id"
-            )}`,
-            {
-              ...state,
-              amount: precio,
-            }
-          )
-          .then(({ data }) => {
-            navigate(`/historial-de-compras/${data.id}`);
-          });
+        // axios
+        //   .post(
+        //     `https://country-app-v3.herokuapp.com/buy/${localStorage.getItem(
+        //       "id"
+        //     )}`,
+        //     {
+        //       ...state,
+        //       amount: precio,
+        //     }
+        //   )
+        //   .then(({ data }) => {
+        //     navigate(`/historial-de-compras/${data.id}`);
+        //   });
 
-        axios.put(
-          `https://country-app-v3.herokuapp.com/orders/clear/$${localStorage.getItem(
-            "id"
-          )}`
-        );
+        // axios.put(
+        //   `https://country-app-v3.herokuapp.com/orders/clear/$${localStorage.getItem(
+        //     "id"
+        //   )}`
+        // );
       }
     });
   };
@@ -100,15 +100,15 @@ function FormCuentaUser({ state, user, setState }) {
 
   //Get de los productos del carrito actual
   useEffect(() => {
-    axios
-      .get(
-        `https://country-app-v3.herokuapp.com/orders/${localStorage.getItem(
-          "id"
-        )}`
-      )
-      .then(({ data }) => {
-        setProductos(data);
-      });
+    // axios
+    //   .get(
+    //     `https://country-app-v3.herokuapp.com/orders/${localStorage.getItem(
+    //       "id"
+    //     )}`
+    //   )
+    //   .then(({ data }) => {
+    //     setProductos(data);
+    //   });
   }, [state]);
 
   useEffect(() => {

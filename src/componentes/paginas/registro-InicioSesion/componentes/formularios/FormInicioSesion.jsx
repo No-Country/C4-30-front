@@ -1,40 +1,61 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate, useNavigationType } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import "./Formularios.scss";
 import { Alert, AlertTitle } from "@material-ui/core";
-import axios from "axios";
+import { AuthContext } from "../../../../../context/AuthContext";
+import { useContext } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../../firebase";
+
+// import axios from "axios";
+
+
 
 const Inicio = ({ isSelectedInicio }) => {
   const style = { fontSize: "3em" };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const navitage = useNavigate()
 
+  const {dispatch} = useContext(AuthContext)
+
+  // authentification with Firebase
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "https://country-app-v3.herokuapp.com/sign_in",
-        JSON.stringify({ email, password })
-      )
-      .then((data) => {
-        window.location.pathname = "/Productos";
-        localStorage.setItem("user", data.data.email);
-        localStorage.setItem("id", data.data.id);
+    // axios
+    //   .post(
+    //     "https://country-app-v3.herokuapp.com/sign_in",
+    //     JSON.stringify({ email, password })
+    //   )
+    //   .then((data) => {
+    //     window.location.pathname = "/Productos";
+    //     localStorage.setItem("user", data.data.email);
+    //     localStorage.setItem("id", data.data.id);
+    //   })
+    //   .catch((error) => {
+    //     if (error.request) {
+    //       setError(error.request.response);
+    //     }
+    //   });
+    signInWithEmailAndPassword(auth,email,password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch({type:"LOGIN", payload: user})
+        navitage("/Productos")
       })
       .catch((error) => {
-        if (error.request) {
-          setError(error.request.response);
-        }
-      });
+        setError(true);
+      })
+
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      window.location.pathname = "/";
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("user")) {
+  //     window.location.pathname = "/";
+  //   }
+  // }, []);
 
   return (
     <>

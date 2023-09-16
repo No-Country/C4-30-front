@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch } from "antd";
 import Swal from 'sweetalert2';
 import tipo from "../../constantes/images";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "../../contenedores/ConfiguracionCuenta.scss";
 import axios from "axios";
 

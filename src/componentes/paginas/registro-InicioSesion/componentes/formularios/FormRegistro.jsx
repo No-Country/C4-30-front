@@ -3,6 +3,9 @@ import { FcGoogle } from "react-icons/fc";
 import { Alert, AlertTitle } from "@material-ui/core";
 import axios from "axios";
 import "./Formularios.scss";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../../../../firebase";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Registro = ({ isSelectedRegistro }) => {
   const style = { fontSize: "3em" };
@@ -11,23 +14,71 @@ const Registro = ({ isSelectedRegistro }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  const navitage = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "https://country-app-v3.herokuapp.com/sign_up",
-        JSON.stringify({ email, password, name })
-      )
-      .then((data) => {
-        window.location.pathname = `/Verificar-Cuenta/Nuevo-Usuario/${data.data.id}`;
-        localStorage.setItem("confirmation_email", data.data.email);
-      })
-      .catch((error) => {
-        if (error.request) {
-          setError(error.request.response);
-        }
-      });
+    // axios
+    //   .post(
+    //     "https://country-app-v3.herokuapp.com/sign_up",
+    //     JSON.stringify({ email, password, name })
+    //   )
+    //   .then((data) => {
+    //     window.location.pathname = `/Verificar-Cuenta/Nuevo-Usuario/${data.data.id}`;
+    //     localStorage.setItem("confirmation_email", data.data.email);
+    //   })
+    //   .catch((error) => {
+    //     if (error.request) {
+    //       setError(error.request.response);
+    //     }
+    //   });
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log("userCredential",userCredential.user);
+          // window.location.pathname =  `/Verificar-Cuenta/Nuevo-Usuario/${data.data.id}`;
+          // Signed in 
+          // navitage("/Productos")
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setError(errorMessage);
+          console.log(error);
+        });
   };
+
+  const handleGoogle = (e) => {
+    e.preventDefault();
+    const provider = new GoogleAuthProvider();
+    console.log("aqui estos", provider);
+    
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        console.log("useeer",user);
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        console.log("errores",errorCode ,errorMessage,email  );
+      });
+  }
 
   return (
     <>
@@ -88,13 +139,15 @@ const Registro = ({ isSelectedRegistro }) => {
           </div>
         </form>
 
-        {/* <div className="RedesSocialesBox">
+        <div className="RedesSocialesBox">
           <br />
           <h4>O registrate con</h4>
           <div className="RedesSocialesRegistro">
-            <FcGoogle style={style} />
+            <button onClick={handleGoogle}>
+              <FcGoogle style={style} />
+            </button>
           </div>
-        </div> */}
+        </div>
       </section>
     </>
   );

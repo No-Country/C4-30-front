@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import "./ConfiguracionCuenta.scss";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import SidebarLateral from "../componentes/SidebarLateral";
 import Footer from "../../../subComponentes/footer/Footer";
 

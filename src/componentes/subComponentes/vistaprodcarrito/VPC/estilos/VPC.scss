@@ -71,7 +71,7 @@
     display: flex;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: end;
+    justify-content: flex-end;
     margin: 0;
     /*     margin-top: 7px;
     margin-right: 8px; */
@@ -172,7 +172,7 @@
     display: flex;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-    justify-content: start;
+    justify-content: flex-startt;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -183,7 +183,7 @@
     display: flex;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-    justify-content: start;
+    justify-content: flex-startt;
     background-color: #edeef2;
     border-radius: 100px;
     margin-right: 8px;
@@ -194,7 +194,7 @@
     display: flex;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: end;
+    justify-content: flex-end;
   }
   .contenedorVPC .iconclock {
     width: 12px;
@@ -300,7 +300,7 @@
     display: flex;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: end;
+    justify-content: flex-end;
     margin: 0;
     margin-top: 7px;
     margin-right: 8px;
@@ -400,7 +400,7 @@
     display: flex;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-    justify-content: start;
+    justify-content: flex-startt;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -411,7 +411,7 @@
     display: flex;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-    justify-content: start;
+    justify-content: flex-startt;
     background-color: #edeef2;
     border-radius: 100px;
     margin-right: 8px;
@@ -422,7 +422,7 @@
     display: flex;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: end;
+    justify-content: flex-end;
   }
   .contenedorVPC .iconclock {
     width: 12px;

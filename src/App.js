@@ -1,7 +1,7 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import axios from "axios";
+import { useState, useEffect, useContext } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+// import axios from "axios";
 
 import InicioSesion from "./componentes/paginas/registro-InicioSesion/contenedor/InicioSesion";
 import VerificarCuentaUsuario from "./componentes/paginas/registro-InicioSesion/contenedor/VerificarCuenta-Usuario";
@@ -15,25 +15,34 @@ import Home from "./componentes/paginas/home/Home";
 import ConfiguracionCuenta from "./componentes/paginas/configuracionCuenta/contenedores/ConfiguracionCuenta";
 import ListaDeDeseos from "./componentes/paginas/listaDeDeseos/ListaDeDeseos";
 import SobreVeredeUser from "./componentes/paginas/sobreVeredeUser/SobreVeredeUser";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
   //Información de usuario al useState
   const [user, setUser] = useState("");
-  const getDataUser = () => {
-    axios
-      .get(
-        `https://country-app-v3.herokuapp.com/user/${localStorage.getItem(
-          "id"
-        )}`
-      )
-      .then(({ data }) => {
-        setUser(data);
-      });
-  };
+  // const getDataUser = () => {
+  //   axios
+  //     .get(
+  //       `https://country-app-v3.herokuapp.com/user/${localStorage.getItem(
+  //         "id"
+  //       )}`
+  //     )
+  //     .then(({ data }) => {
+  //       setUser(data);
+  //     });
+  // };
 
-  useEffect(() => {
-    getDataUser();
-  }, []);
+  // useEffect(() => {
+  //   getDataUser();
+  // }, []);
+  const {currentUser } = useContext(AuthContext)
+  // const currentUser = true;
+
+  const RequireAuth = ({children}) => {
+    return currentUser ? children : <Navigate to="/Inicio-Sesion"/>
+  }
+
+  console.log(currentUser);
 
   return (
     <div className="App">
@@ -67,7 +76,7 @@ function App() {
         <Route path="/Sobre-Veride-Visitante" element={<SobreVeride />} />
         <Route path="/Sobre-Veride" element={<SobreVeredeUser />} />
 
-        <Route path="/Productos" element={<Home user={user} />} />
+        <Route path="/Productos" element={<RequireAuth><Home user={user}/></RequireAuth>} />
         <Route path="/" element={<SobreVeride />} />
       </Routes>
     </div>
