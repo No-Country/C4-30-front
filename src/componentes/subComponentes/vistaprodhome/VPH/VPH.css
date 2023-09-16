@@ -101,7 +101,7 @@
     display: flex;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: start;
+            justify-content: flex-startt;
   }
   .contenedorVPH .flex3 {
     display: -webkit-box;
@@ -109,7 +109,7 @@
     display: flex;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: start;
+            justify-content: flex-startt;
     background-color: #edeef2;
     border-radius: 100px;
     margin-top: 11px;
@@ -240,7 +240,7 @@
     display: flex;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: start;
+            justify-content: flex-startt;
   }
   .contenedorVPH .flex3 {
     display: -webkit-box;
@@ -248,7 +248,7 @@
     display: flex;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: start;
+            justify-content: flex-startt;
     background-color: #edeef2;
     border-radius: 100px;
     margin-top: 5px;

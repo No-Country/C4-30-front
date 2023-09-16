@@ -61,7 +61,7 @@ const InicioRegistro = () => {
               onClick={handleRegistro}
             >
               Registro
-            </Link>
+            </Link>``
           </il>
         </div>
 

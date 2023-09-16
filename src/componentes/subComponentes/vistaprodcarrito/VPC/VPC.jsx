@@ -90,7 +90,7 @@ export default function VPC({
   return (
     <div className="contenedorVPC">
       <div className="contenedorImagen">
-        <img src={products.image} alt="imagen" onClick={buttonImg} />
+        <img src={products.img} alt="imagen" onClick={buttonImg} />
         {/* <h3 className={`postexto ${isImg ? "hidden" : ""}`}>AGOTADO</h3> */}
       </div>
 
@@ -105,20 +105,20 @@ export default function VPC({
             </div>
             <div className="flex1">
               <img className="iconclock" src={clock} alt="clock" />
-              <h2>{products.time_preparation}</h2>
+              <h2>{products.preparation}</h2>
             </div>
           </div>
 
           <p>{products.description}</p>
 
-          {/*           <div className="flex4">
+                    <div className="flex4">
             <h5>Read more</h5>
             <img className="icondown" src={down} alt="down" />
-          </div> */}
+          </div>
 
           <div className="flex2">
             <div className="flex3">
-              <img className="icon" src={categoria.image} alt="burger" />
+              <img className="icon" src={categoria.img} alt="burger" />
               <h4>{categoria.name}</h4>
             </div>
           </div>

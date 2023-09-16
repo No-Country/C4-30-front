@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import clock from "../imagenes/clock.svg";
 
 export default function VPSV({ prod, categorias }) {
+  console.log("i am in VPSV testing its prod",prod);
 
   let categoria;
   if (categorias) {
@@ -14,7 +15,7 @@ export default function VPSV({ prod, categorias }) {
 
   return (
     <div className="contenedorVPSV">
-      <img src={prod.image} alt="imagen" />
+      <img src={prod.img} alt="imagen" />
       <h4 className={`postexto ${prod.state === "disponible" ? "hidden" : ""}`}>
         AGOTADO
       </h4>
@@ -34,7 +35,7 @@ export default function VPSV({ prod, categorias }) {
                       <h3>DESTALLES DEL PRODUCTO</h3>
                     </section>
                     <section class="imgInfo">
-                      <img src=${prod.image} alt="producto" />
+                      <img src=${prod.img} alt="producto" />
                     </section>
 
                     <section class="nameInfo">
@@ -48,7 +49,7 @@ export default function VPSV({ prod, categorias }) {
                       <p> <strong> Categoría: </strong> ${
                         categoria && categoria.name
                       } </p>
-                      <p> <strong> Tiempo de preparación: </strong> ${prod.time_preparation} </p>
+                      <p> <strong> Tiempo de preparación: </strong> ${prod.preparation} </p>
                       <p> <strong> Estado: </strong> ${prod.state} </p>
                     </section>
                     <section class="precioInfo">

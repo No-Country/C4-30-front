@@ -8,6 +8,8 @@ export default function Categorias({ prod, setSelectedCategorias, selectedCatego
   // Filtrado por categoria
   const [isClick, setIsClick] = useState(false);
 
+ 
+
   const removeItem = (id) => {
     setSelectedCategorias(selectedCategorias.filter((c)=>(c !== id)));
   }
@@ -15,6 +17,7 @@ export default function Categorias({ prod, setSelectedCategorias, selectedCatego
     setIsClick(current => !current)
     if (!isClick) {
       setSelectedCategorias(selectedCategorias.concat(prod.id));
+      
     }
     else {
       removeItem(prod.id);
@@ -24,7 +27,7 @@ export default function Categorias({ prod, setSelectedCategorias, selectedCatego
   return (
     <div>
       <div className={`contenedor ${isClick ? "click" : ""}`} onClick={buttonClick}>
-        <img className="imgCat" src={prod.image} alt="imagen" />
+        <img className="imgCat" src={prod.img} alt="imagen" />
         <p className='textCat'>{prod.name}</p>
       </div>
     </div>

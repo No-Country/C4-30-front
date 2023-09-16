@@ -12,27 +12,47 @@ import Footer from "../../subComponentes/footer/Footer";
 
 import { SearchContext } from "../../../context/SearchContext";
 import SliderInfinito from "../../subComponentes/sliderinfinito/SliderInfinito";
+import { db } from "../../../firebase";
 
+import { collection, getDocs } from "firebase/firestore";
 
 export default function Home({user}) {
   // mostrar CATEGORIAS desde la API
   const [categorias, setCategorias] = useState([]);
-  const cargarCategorias = () => {
-    axios
-      .get("https://country-app-v3.herokuapp.com/categories")
-      .then((data) => {
-        //Data de Categorias al useState
-        setCategorias(data.data);
-      })
-      .catch((error) => console.log(error));
-  };
+  const cargarCategorias = async() => {
+  //   axios
+  //     .get("https://country-app-v3.herokuapp.com/categories")
+  //     .then((data) => {
+  //       //Data de Categorias al useState
+  //       setCategorias(data.data);
+  //     })
+  //     .catch((error) => console.log(error));
+    let list = [];
+      try {
+        const querySnapshot = await getDocs(collection(db, "categorias"));
+        querySnapshot.forEach((doc) => {
+          list.push({
+            ...doc.data(),
+            id: doc.id,
+          })
+        });
+        //Data de Productos al useState
+        setCategorias(list);
+      }catch(err){
+        console.log(err);
+      }
+    };
+
+
 
   useEffect(() => {
-    if (!localStorage.getItem("user")) {
-      window.location.pathname = "/inicio-sesion";
-    }
+    // if (!localStorage.getItem("user")) {
+    //   // window.location.pathname = "/inicio-sesion";
+      
+    // }
 
-    cargarCategorias();
+
+  
   }, []);
 
   //mostrar PRODUCTOS y MAS VENDIDOS desde la API
@@ -42,50 +62,96 @@ export default function Home({user}) {
 
   //Almacena el contenido del CONTEXT en una CONSTANTE
   const searchContext = useContext(SearchContext);
-  console.log(searchContext.query); // para pruebas del CONTEXT
+  console.log("searchContext.query",searchContext.query); // para pruebas del CONTEXT
 
   const [isContext, setIsContext] = useState([]);
 
-  const cargarProductos = (e) => {
-    axios
-      .get("https://country-app-v3.herokuapp.com/api/v1/products")
-      .then((data) => {
-        data = data.data;
+  // const cargarProductos = (e) => {
+  //   axios
+  //     .get("https://country-app-v3.herokuapp.com/api/v1/products")
+  //     .then((data) => {
+  //       data = data.data;
 
-        //Filtrado con el input del BUSCADOR
-        const searchResult = data && data.filter((item) => item.name.toLowerCase().includes(e.query));
+  //       //Filtrado con el input del BUSCADOR
+  //       const searchResult = data && data.filter((item) => item.name.toLowerCase().includes(e.query));
 
-        //Data de Productos al useState
-        //setProductos(data.data);
-        setProductos(searchResult);
+  //       //Data de Productos al useState
+  //       //setProductos(data.data);
+  //       setProductos(searchResult);
 
-      })
-      .catch((error) => console.log(error));
-  };
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
-  const cargarVendidos = (e) => {
+  const cargarProductos = async(e) => {
+    let list = [];
+    try {
+      const querySnapshot = await getDocs(collection(db, "productos"));
+      querySnapshot.forEach((doc) => {
 
-    if(!e.query){
-      axios
-      .get("https://country-app-v3.herokuapp.com/api/v1/products")
-      .then((data) => {
-        //Data de Mas Vendidos; lo cual, es un RANDOM de 10 de la Data de Productos
-        var cont = 4;
-        var shuffled = data.data.sort(function () {
-          return 0.5 - Math.random();
-        });
-        var selected = shuffled.slice(0, cont);
-        setVendidos(selected);
-      })
-      .catch((error) => console.log(error));
+        list.push(doc.data())
+      });
+      //Filtrado con el input del BUSCADOR
+      const searchResult = list && list.filter((item) => item.name.toLowerCase().includes(e.query));
+      //Data de Productos al useState
+      setProductos(searchResult);
+      console.log("prub1",list);
+    }catch(err){
+      console.log(err);
+    }
+
+  }
+
+  
+
+
+  const cargarVendidos = async() => {
+
+    // if(!e.query){
+    //   axios
+    //   .get("https://country-app-v3.herokuapp.com/api/v1/products")
+    //   .then((data) => {
+    //     //Data de Mas Vendidos; lo cual, es un RANDOM de 10 de la Data de Productos
+    //     var cont = 4;
+    //     var shuffled = data.data.sort(function () {
+    //       return 0.5 - Math.random();
+    //     });
+    //     var selected = shuffled.slice(0, cont);
+    //     setVendidos(selected);
+    //   })
+    //   .catch((error) => console.log(error));
+    // }
+
+    let list = [];
+    try {
+      const querySnapshot = await getDocs(collection(db, "productos"));
+      querySnapshot.forEach((doc) => {
+
+        list.push(doc.data())
+      });
+      //Data de Mas Vendidos; lo cual, es un RANDOM de 10 de la Data de Productos
+           let cont = 4;
+           let shuffled = list.sort(function () {
+             return 0.5 - Math.random();
+           });
+           let selected = shuffled.slice(0, cont); 
+           console.log("selected",selected);
+           setVendidos(selected);
+    }catch(err){
+      console.log(err);
     }
 
   };
 
+  // useEffect(() => {
+  //   cargarProductos(searchContext); // Todos los Productos
+  //   cargarVendidos(searchContext); // Los Mas Vendidos - muestra de manera Random
+  //   setIsContext(searchContext.query); // valor del CONTEXT al useState
+  // }, [searchContext]);
   useEffect(() => {
     cargarProductos(searchContext); // Todos los Productos
-    cargarVendidos(searchContext); // Los Mas Vendidos - muestra de manera Random
-    setIsContext(searchContext.query); // valor del CONTEXT al useState
+    cargarCategorias(); // all the categories'list
+    cargarVendidos(); // Los Mas Vendidos - muestra de manera Random
   }, [searchContext]);
 
   // Filtrado por categoria
@@ -94,9 +160,10 @@ export default function Home({user}) {
   return (
     <section className="section">
       <NavBarHome user={user}/>
-      <SliderInfinito/>
+      {/* <SliderInfinito/> */}
 
-      <article className={`article-destacados ${isContext ? "hidden" : ""}`}>
+      {/* <article className={`article-destacados ${isContext ? "hidden" : ""}`}> */}
+      <article className={`article-destacados ? "hidden" : ""}`}> 
         <h2>Más Vendidos</h2>
         <div className="masVendidos">
           {" "}
@@ -111,9 +178,10 @@ export default function Home({user}) {
         <h2>Categorías</h2>
         <div className="container-categorias">
           {categorias.map((prod) => {
+            console.log(prod);
             return (
               <Categorias
-                key={prod.id}
+                // key={prod.id}
                 prod={prod}
                 setSelectedCategorias={setSelectedCategorias}
                 selectedCategorias={selectedCategorias}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch } from "antd";
 import Swal from 'sweetalert2';
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "../../contenedores/ConfiguracionCuenta.scss";
 import axios from "axios"
 

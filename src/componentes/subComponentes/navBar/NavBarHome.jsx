@@ -25,6 +25,7 @@ export default function NavBarHome({ user }) {
 
   /* Inicio de Busqueda al presionar ENTER en el INPUT BUSCADOR del NAVBAR */
   const handleEnter = (e) => {
+    console.log("is in handleEnter",e);
     if (e.key === "Enter") {
       searchQueryHandler();
     }

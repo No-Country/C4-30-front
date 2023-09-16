@@ -1,6 +1,6 @@
 import React from "react";
 import "../contenedores/HistorialCompras.scss";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import Vistaprodcarrito from "../../../subComponentes/vistaprodhistorial/Vistaprodhistorial";
 
 function SidebarLateral({ state, setState }) {

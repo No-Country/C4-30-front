@@ -34,7 +34,7 @@ function FormVerificarCuentaNuevoUsuario() {
 
   useEffect(() => {
     if (!localStorage.getItem("confirmation_email")) {
-      window.location.pathname = "/inicio-sesion";
+      // window.location.pathname = "/inicio-sesion";
     }
   }, []);
 

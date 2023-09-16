@@ -1,6 +1,6 @@
 import React from "react";
 import "../contenedores/ConfiguracionCuenta.scss";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import { Link } from "react-router-dom";
 import { FiUser, FiMapPin, FiCreditCard } from "react-icons/fi";
 import { useState } from "react";

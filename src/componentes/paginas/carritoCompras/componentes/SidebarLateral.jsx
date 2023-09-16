@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../contenedores/CarritoCompras.scss";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import Vistaprodcarrito from "../../../subComponentes/vistaprodcarrito/Vistaprodcarrito";
 import axios from "axios";
 
