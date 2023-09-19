@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { Link as LinkR} from 'react-router-dom'
+
 import '../../../registro-InicioSesion/componentes/formularios/Formularios.scss'
+import { Link as LinkS} from 'react-scroll'
 
 export const Nav = styled.nav`
   background: #2c2a2a37;
@@ -92,7 +94,7 @@ export const NavItem =styled.li`
 height: 80px;
 `
 
-export const NavLinks = styled.a`
+export const NavLinks = styled(LinkS)`
   color: #ffff ;
   display: flex;
   align-items:center;

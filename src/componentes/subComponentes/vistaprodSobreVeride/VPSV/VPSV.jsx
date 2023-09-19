@@ -78,13 +78,13 @@ export default function VPSV({ prod, categorias }) {
 
         <div className="flex2">
           <img className="iconclock" src={clock} alt="clock" />
-          <h2>{prod.time_preparation}</h2>
+          <h2>{prod.preparation}</h2>
           <h2>$ {prod.price}.00</h2>
           <div className="flex2">
           <div className="flex3">
             <img
               className="icon"
-              src={categoria && categoria.image}
+              src={categoria && categoria.img}
               alt=""
             />
             <h3>{categoria && categoria.name}</h3>

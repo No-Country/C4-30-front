@@ -1,9 +1,18 @@
 import React from 'react';
 import {BiMenuAltRight} from 'react-icons/bi';
 import {Nav, NavbarContainer, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink} from './NavbarElements'
+import { Link } from 'react-scroll';
 
 
 function Navbar({toggle}) {
+
+  const navLinks = [
+    { to: "infoSection", children: "¿Quienes somos?" },
+    { to: "productosSection", children: "Productos" },
+    { to: "serviciosSection", children: "Servicios" },
+    { to: "reconocimientoSection", children: "Reconocimiento" },
+    { to: "sucursalesSection", children: "Sucursales" },
+  ];
   return (
     <>
       <Nav>
@@ -12,21 +21,13 @@ function Navbar({toggle}) {
             <BiMenuAltRight />
           </MobileIcon>
           <NavMenu>
-            <NavItem>
-              <NavLinks to="about" href="#infoSection">¿Quienes somos?</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks to="productos" href="#productosSection" >Productos</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks to="servicios" href="#serviciosSection" >Servicios</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks to="testimonios" href="#reconocimientoSection">Reconocimiento</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks to="sucursales" href="#sucursalesSection" >Sucursales</NavLinks>
-            </NavItem>
+            {navLinks.map((navLink) => (
+              <NavItem key={navLink.to}>
+                <NavLinks {...navLink} spy={true} smooth={true} offset={50} duration={500}>
+                  {navLink.children}
+                </NavLinks>
+              </NavItem>
+            ))}
           </NavMenu>
           <NavBtn>
             <NavBtnLink to="/Inicio-Sesion" >Ingresa Aquí</NavBtnLink>
